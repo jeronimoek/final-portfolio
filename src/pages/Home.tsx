@@ -13,7 +13,7 @@ export default function Home() {
             <div className="w-50 h-50  rounded-full overflow-hidden bg-[#d9d9d9]/20 not-md:mx-auto">
               <img
                 className="w-50 h-50 object-contain -scale-x-90 scale-y-90 mt-3"
-                src="/assets/images/selfie.png"
+                src="./assets/images/selfie.png"
                 alt=""
               />
             </div>
