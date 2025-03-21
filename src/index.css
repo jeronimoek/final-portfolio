@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+.disabled-text {
+  color: #999999;
+}
+.main-text {
+  color: #e9e9e9;
+}
+.secondary-text {
+  color: #c7c7c7;
+}
+
+.expand-clickable {
+  cursor: pointer;
+  transition: all 200ms;
+}
+.expand-clickable:hover {
+  transform: scale(1.25);
+}
+
+/* width */
+/* set the width of the scrollbar */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Handle */
+/* set the color of the scrollbar and the radius of its corners */
+
+::-webkit-scrollbar-thumb {
+  margin: 5px;
+  background: rgb(150, 150, 150);
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+/* Handle on hover */
+/* set the color of the scrollbar when hovered over */
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(131, 131, 131);
+}
+
+/* Handle on active */
+/* set the color of the scrollbar when clicked */
+
+::-webkit-scrollbar-thumb:active {
+  background: rgb(104, 104, 104);
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
