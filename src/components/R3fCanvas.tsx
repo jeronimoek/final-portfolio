@@ -6,9 +6,17 @@ import { CustomSphere } from "./CustomSphere";
 import { CustomTorus } from "./CustomTorus";
 import GlassPanel from "./GlassPanel";
 
-export function R3fCanvas() {
+interface R3fCanvasProps {
+  onLoad: () => void;
+}
+
+export function R3fCanvas({ onLoad }: R3fCanvasProps) {
   return (
-    <Canvas>
+    <Canvas
+      onLoad={() => {
+        console.log("HOLA");
+      }}
+    >
       {/* <OrbitControls /> */}
       <OrthographicCamera
         position={[0, 0, 30]}
@@ -33,7 +41,7 @@ export function R3fCanvas() {
       <CustomSphere position={[-5, -3, -10]} />
       <CustomSphere position={[5, 3, -10]} />
       <CustomSphere position={[5, 0, -10]} />
-      <GlassPanel />
+      <GlassPanel onLoad={onLoad} />
     </Canvas>
   );
 }
