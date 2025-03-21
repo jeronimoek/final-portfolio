@@ -5,7 +5,7 @@ import RootLayout from "./layouts/RootLayout";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/final-portfolio">
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route path="/" index element={<Home />} />
