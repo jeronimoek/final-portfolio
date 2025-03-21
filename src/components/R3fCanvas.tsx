@@ -12,11 +12,7 @@ interface R3fCanvasProps {
 
 export function R3fCanvas({ onLoad }: R3fCanvasProps) {
   return (
-    <Canvas
-      onLoad={() => {
-        console.log("HOLA");
-      }}
-    >
+    <Canvas>
       {/* <OrbitControls /> */}
       <OrthographicCamera
         position={[0, 0, 30]}
