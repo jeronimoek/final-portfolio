@@ -1,7 +1,12 @@
 import type { Mesh } from "three";
 import { MeshTransmissionMaterial } from "@react-three/drei";
 import { useLayoutEffect, useMemo, useRef } from "react";
-import { ExtrudeGeometry, Shape } from "three";
+import { ExtrudeGeometry } from "three";
+import {
+  getDocumentHeight,
+  getWindowHeight,
+  roundedRect,
+} from "../../../utils/tools";
 
 interface GlassPanelProps {
   onLoad: () => void;
@@ -16,32 +21,7 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
   const meshRef = useRef<Mesh>(null);
 
   const geometry = useMemo(() => {
-    const roundedRectShape = new Shape();
-
-    function roundedRect(
-      ctx: Shape,
-      x: number,
-      y: number,
-      width: number,
-      height: number,
-      radius: number
-    ) {
-      ctx.moveTo(x, y + radius);
-      ctx.lineTo(x, y + height - radius);
-      ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
-      ctx.lineTo(x + width - radius, y + height);
-      ctx.quadraticCurveTo(
-        x + width,
-        y + height,
-        x + width,
-        y + height - radius
-      );
-      ctx.lineTo(x + width, y + radius);
-      ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
-      ctx.lineTo(x + radius, y);
-      ctx.quadraticCurveTo(x, y, x, y + radius);
-    }
-    roundedRect(roundedRectShape, 0, 0, WIDTH, HEIGHT, 0.0001);
+    const roundedRectShape = roundedRect(0, 0, WIDTH, HEIGHT, 0.0001);
 
     const extrudeSettings = {
       depth: 0.1,
@@ -60,19 +40,8 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
   // mesh.position.set(x, y, z - 75);
 
   useLayoutEffect(() => {
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight ||
-      0;
-    const docHeight = Math.max(
-      document.body.scrollHeight || 0,
-      document.documentElement.scrollHeight || 0,
-      document.body.offsetHeight || 0,
-      document.documentElement.offsetHeight || 0,
-      document.body.clientHeight || 0,
-      document.documentElement.clientHeight || 0
-    );
+    const windowHeight = getWindowHeight();
+    const docHeight = getDocumentHeight();
     const proportion = docHeight / windowHeight;
     // console.log(proportion);
     meshRef.current?.scale.set(1, proportion, 1);

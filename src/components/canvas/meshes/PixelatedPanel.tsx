@@ -1,16 +1,16 @@
 import type { Mesh, ShaderMaterial } from "three";
 import { useLayoutEffect, useMemo, useRef } from "react";
-import {
-  DataTexture,
-  DoubleSide,
-  FloatType,
-  RGBAFormat,
-  Shape,
-  ShapeGeometry,
-  Vector3,
-} from "three";
+import { DoubleSide, ShapeGeometry, Vector3 } from "three";
 import vertex from "../../../glsl/vertex.vert";
 import fragment from "../../../glsl/fragment.frag";
+import { useFrame } from "@react-three/fiber";
+import {
+  getDocumentHeight,
+  getDocumentWidth,
+  getWindowHeight,
+  roundedRect,
+} from "../../../utils/tools";
+import { getColorTexture } from "../../../constants/colors";
 
 interface PixelatedPanelProps {
   onLoad: () => void;
@@ -25,54 +25,24 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
   const shaderRef = useRef<ShaderMaterial>(null);
 
   const geometry = useMemo(() => {
-    const roundedRectShape = new Shape();
-
-    function roundedRect(
-      ctx: Shape,
-      x: number,
-      y: number,
-      width: number,
-      height: number,
-      radius: number
-    ) {
-      ctx.moveTo(x, y + radius);
-      ctx.lineTo(x, y + height - radius);
-      ctx.quadraticCurveTo(x, y + height, x + radius, y + height);
-      ctx.lineTo(x + width - radius, y + height);
-      ctx.quadraticCurveTo(
-        x + width,
-        y + height,
-        x + width,
-        y + height - radius
-      );
-      ctx.lineTo(x + width, y + radius);
-      ctx.quadraticCurveTo(x + width, y, x + width - radius, y);
-      ctx.lineTo(x + radius, y);
-      ctx.quadraticCurveTo(x, y, x, y + radius);
-    }
-    roundedRect(roundedRectShape, 0, 0, WIDTH, HEIGHT, 0.5);
-
-    // 2d shape
-
+    const roundedRectShape = roundedRect(0, 0, WIDTH, HEIGHT, 0.5);
     return new ShapeGeometry(roundedRectShape);
   }, []);
 
   // mesh.position.set(x, y, z - 75);
 
+  const uniforms = useMemo(() => {
+    return {
+      uDataTexture: { value: getColorTexture() },
+      uMouseWorldPosition: { value: new Vector3(9999, 9999, 9999) },
+      uTime: { value: 0 },
+    };
+  }, []);
+
   useLayoutEffect(() => {
-    const windowHeight =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight ||
-      0;
-    const docHeight = Math.max(
-      document.body.scrollHeight || 0,
-      document.documentElement.scrollHeight || 0,
-      document.body.offsetHeight || 0,
-      document.documentElement.offsetHeight || 0,
-      document.body.clientHeight || 0,
-      document.documentElement.clientHeight || 0
-    );
+    const windowHeight = getWindowHeight();
+    const docHeight = getDocumentHeight();
+    const docWidth = getDocumentWidth();
     const proportion = docHeight / windowHeight;
     // console.log(proportion);
     meshRef.current?.scale.set(1, proportion, 1);
@@ -104,92 +74,36 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
     }
     // console.log({ windowHeight, docHeight });
 
+    function updateMousePosition(x: number, y: number) {
+      const finalX = x / docWidth;
+      const finalY = y / docHeight;
+
+      const vector = new Vector3(finalX * 10 - 1, -finalY * 10 + 10, 0);
+      uniforms.uMouseWorldPosition.value = vector;
+    }
+
     function onMouseMove(ev: MouseEvent) {
-      if (!meshRef.current) return;
+      updateMousePosition(ev.pageX, ev.pageY);
+    }
 
-      const docHeight = Math.max(
-        document.body.scrollHeight || 0,
-        document.documentElement.scrollHeight || 0,
-        document.body.offsetHeight || 0,
-        document.documentElement.offsetHeight || 0,
-        document.body.clientHeight || 0,
-        document.documentElement.clientHeight || 0
-      );
-
-      const docWidth = Math.max(
-        document.body.scrollWidth || 0,
-        document.documentElement.scrollWidth || 0,
-        document.body.offsetWidth || 0,
-        document.documentElement.offsetWidth || 0,
-        document.body.clientWidth || 0,
-        document.documentElement.clientWidth || 0
-      );
-
-      const x = ev.pageX / docWidth;
-      const y = ev.pageY / docHeight;
-
-      const vector = new Vector3(x * 10 - 1, -y * 10 + 10, 0);
-      if (shaderRef.current?.uniforms)
-        shaderRef.current.uniforms.uMouseWorldPosition.value = vector;
+    function onTouchEnd(ev: TouchEvent) {
+      const touch = ev.touches[0];
+      updateMousePosition(touch.pageX, touch.pageY);
     }
 
     window.addEventListener("scroll", onScroll);
     window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("touchend", onTouchEnd);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
-  const texture = useMemo(() => {
-    const colors = [
-      // #E0BBE4
-      [87.84, 73.33, 89.41],
-      // #957DAD
-      [58.43, 49.02, 67.84],
-      // #D291BC
-      [82.35, 56.86, 73.73],
-      // #FEC8D8
-      [99.61, 78.43, 84.71],
-      // #FFDFD3
-      [100, 87.45, 82.75],
-      // #B3EBF2
-      [70.2, 92.16, 94.9],
-      // #FF746C
-      [100, 45.49, 42.35],
-      // #C4EED9
-      [76.86, 93.33, 85.1],
-    ].map((color) => color.map((value) => value / 1000));
-    const triangleCount = colors.length;
-    const triangleData = new Float32Array(triangleCount * 4);
-    for (let i = 0; i < triangleCount; i++) {
-      const triangleIndex = i * 4;
-      const [x, y, z] = colors[i];
-
-      triangleData[triangleIndex] = x;
-      triangleData[triangleIndex + 1] = y;
-      triangleData[triangleIndex + 2] = z;
-      triangleData[triangleIndex + 3] = 1;
-    }
-
-    const dataTexture = new DataTexture(
-      triangleData,
-      triangleCount,
-      1,
-      RGBAFormat,
-      FloatType
-    );
-    dataTexture.needsUpdate = true;
-
-    return dataTexture;
-  }, []);
-
-  const uniforms = useMemo(() => {
-    return {
-      uDataTexture: { value: texture },
-      uMouseWorldPosition: { value: new Vector3(0, 0, 0) },
-    };
-  }, []);
+  useFrame(({ clock }) => {
+    uniforms.uTime.value = clock.getElapsedTime();
+  });
 
   return (
     <mesh
