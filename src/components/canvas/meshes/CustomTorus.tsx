@@ -34,9 +34,7 @@ export function CustomTorus(props: ThreeElements["mesh"]) {
       100,
       Math.sqrt(xSpring.get() ** 2 + ySpring.get() ** 2)
     );
-    meshRef.current.rotation.x += 0.001 + vel / 10000;
-    const scalar = Math.min(1.5, 1 + vel / 2000);
-    meshRef.current.scale.set(scalar, scalar, scalar);
+    meshRef.current.rotation.x += 0.01 + vel / 1000;
   });
   return (
     <mesh {...props} ref={meshRef} rotation={[0, 1, 0]}>

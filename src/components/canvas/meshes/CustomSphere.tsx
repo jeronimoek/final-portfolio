@@ -14,15 +14,21 @@ export function CustomSphere(props: ThreeElements["mesh"]) {
   const ySpring = useSpring(yVelocity, { stiffness: 20 });
 
   useEffect(() => {
-    const updateMousePosition = (ev: MouseEvent) => {
+    const updateMousePosition = (ev: PointerEvent) => {
       xPos.set(ev.clientX);
       yPos.set(ev.clientY);
     };
+    function onTouchEnd() {
+      xPos.set(xPos.get() + 400);
+      yPos.set(yPos.get() + 400);
+    }
 
-    window.addEventListener("mousemove", updateMousePosition);
+    window.addEventListener("pointermove", updateMousePosition);
+    window.addEventListener("touchend", onTouchEnd);
 
     return () => {
-      window.removeEventListener("mousemove", updateMousePosition);
+      window.removeEventListener("pointermove", updateMousePosition);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
@@ -36,8 +42,8 @@ export function CustomSphere(props: ThreeElements["mesh"]) {
     );
     const scalar = Math.max(0.1, 1 - vel / 1000);
     meshRef.current.scale.set(scalar, scalar, scalar);
-    meshRef.current.position.x += 0.001 + vel / 10000;
-    meshRef.current.position.y += 0.001 + vel / 10000;
+    meshRef.current.position.x += 0.01 + vel / 10000;
+    meshRef.current.position.y += 0.01 + vel / 10000;
     if (meshRef.current.position.x > 6) {
       meshRef.current.position.x = -6;
     }

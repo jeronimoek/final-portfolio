@@ -1,9 +1,10 @@
 import type { Mesh } from "three";
 import { MeshTransmissionMaterial } from "@react-three/drei";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { ExtrudeGeometry } from "three";
 import {
   getDocumentHeight,
+  getDocumentWidth,
   getWindowHeight,
   roundedRect,
 } from "../../../utils/tools";
@@ -14,14 +15,24 @@ interface GlassPanelProps {
 
 const CAMERA_UNITS = 10;
 const BEVEL_SIZE = 0.3;
-const WIDTH = 0.8 * CAMERA_UNITS - BEVEL_SIZE * 2;
 const HEIGHT = CAMERA_UNITS - BEVEL_SIZE * 2;
 
 export default function GlassPanel({ onLoad }: GlassPanelProps) {
   const meshRef = useRef<Mesh>(null);
+  const [geometry, setGeometry] = useState<ExtrudeGeometry>();
 
-  const geometry = useMemo(() => {
-    const roundedRectShape = roundedRect(0, 0, WIDTH, HEIGHT, 0.0001);
+  // mesh.position.set(x, y, z - 75);
+
+  useLayoutEffect(() => {
+    const windowHeight = getWindowHeight();
+    const docHeight = getDocumentHeight();
+    const docWidth = getDocumentWidth();
+
+    // Create geometry
+
+    const rectWidth =
+      (docWidth > 768 ? 0.8 * CAMERA_UNITS : CAMERA_UNITS) - BEVEL_SIZE * 2;
+    const roundedRectShape = roundedRect(0, 0, rectWidth, HEIGHT, 0.0001);
 
     const extrudeSettings = {
       depth: 0.1,
@@ -34,19 +45,13 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
 
     // extruded shape
 
-    return new ExtrudeGeometry(roundedRectShape, extrudeSettings);
-  }, []);
+    setGeometry(new ExtrudeGeometry(roundedRectShape, extrudeSettings));
 
-  // mesh.position.set(x, y, z - 75);
-
-  useLayoutEffect(() => {
-    const windowHeight = getWindowHeight();
-    const docHeight = getDocumentHeight();
     const proportion = docHeight / windowHeight;
     // console.log(proportion);
     meshRef.current?.scale.set(1, proportion, 1);
     meshRef.current?.position.set(
-      -WIDTH / 2,
+      -rectWidth / 2,
       -HEIGHT / 2 - (HEIGHT + BEVEL_SIZE) * (proportion - 1),
       4
     );
@@ -64,7 +69,7 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
       const scrollCanvasDiff = (scrollPosition / windowHeight) * CAMERA_UNITS;
       // console.log({ scrollCanvasDiff });
       meshRef.current?.position.set(
-        -WIDTH / 2,
+        -rectWidth / 2,
         -HEIGHT / 2 -
           (HEIGHT + BEVEL_SIZE) * (proportion - 1) +
           scrollCanvasDiff,
@@ -109,12 +114,7 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
   );
 
   return (
-    <mesh
-      ref={meshRef}
-      geometry={geometry}
-      position={[-WIDTH / 2, -HEIGHT / 2, 4]}
-      onAfterRender={onLoad}
-    >
+    <mesh ref={meshRef} geometry={geometry} onAfterRender={onLoad}>
       <MeshTransmissionMaterial {...config} />
     </mesh>
   );

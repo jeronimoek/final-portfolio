@@ -1,5 +1,5 @@
 import type { Mesh, ShaderMaterial } from "three";
-import { useLayoutEffect, useMemo, useRef } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { DoubleSide, ShapeGeometry, Vector3 } from "three";
 import vertex from "../../../glsl/vertex.vert";
 import fragment from "../../../glsl/fragment.frag";
@@ -17,17 +17,12 @@ interface PixelatedPanelProps {
 }
 
 const CAMERA_UNITS = 10;
-const WIDTH = 0.8 * CAMERA_UNITS;
 const HEIGHT = CAMERA_UNITS;
 
 export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
   const meshRef = useRef<Mesh>(null);
   const shaderRef = useRef<ShaderMaterial>(null);
-
-  const geometry = useMemo(() => {
-    const roundedRectShape = roundedRect(0, 0, WIDTH, HEIGHT, 0.5);
-    return new ShapeGeometry(roundedRectShape);
-  }, []);
+  const [geometry, setGeometry] = useState<ShapeGeometry>();
 
   // mesh.position.set(x, y, z - 75);
 
@@ -43,11 +38,18 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
     const windowHeight = getWindowHeight();
     const docHeight = getDocumentHeight();
     const docWidth = getDocumentWidth();
+
+    // Create geometry
+
+    const rectWidth = docWidth > 768 ? 0.8 * CAMERA_UNITS : CAMERA_UNITS;
+    const roundedRectShape = roundedRect(0, 0, rectWidth, HEIGHT, 0.5);
+    setGeometry(new ShapeGeometry(roundedRectShape));
+
     const proportion = docHeight / windowHeight;
     // console.log(proportion);
     meshRef.current?.scale.set(1, proportion, 1);
     meshRef.current?.position.set(
-      -WIDTH / 2,
+      -rectWidth / 2,
       -HEIGHT / 2 - HEIGHT * (proportion - 1),
       4
     );
@@ -65,7 +67,7 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
       const scrollCanvasDiff = (scrollPosition / windowHeight) * CAMERA_UNITS;
       // console.log({ scrollCanvasDiff });
       meshRef.current?.position.set(
-        -WIDTH / 2,
+        -rectWidth / 2,
         -HEIGHT / 2 - HEIGHT * (proportion - 1) + scrollCanvasDiff,
         4
       );
@@ -78,7 +80,11 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
       const finalX = x / docWidth;
       const finalY = y / docHeight;
 
-      const vector = new Vector3(finalX * 10 - 1, -finalY * 10 + 10, 0);
+      const vector = new Vector3(
+        finalX * 10 - (10 - rectWidth) / 2,
+        -finalY * 10 + 10,
+        0
+      );
       uniforms.uMouseWorldPosition.value = vector;
     }
 
@@ -106,12 +112,7 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
   });
 
   return (
-    <mesh
-      ref={meshRef}
-      geometry={geometry}
-      position={[-WIDTH / 2, -HEIGHT / 2, 4]}
-      onAfterRender={onLoad}
-    >
+    <mesh ref={meshRef} geometry={geometry} onAfterRender={onLoad}>
       {/* <meshStandardMaterial color={"#333333"} /> */}
       <shaderMaterial
         ref={shaderRef}

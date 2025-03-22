@@ -23,7 +23,7 @@ function StackContainer({ children }: StackContainerProps) {
         />
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
-        <div className="z-10 w-[80%] min-h-screen rounded-[55px] relative flex flex-col">
+        <div className="z-10 w-full md:w-[80%] min-h-screen rounded-[55px] relative flex flex-col">
           <div
             className={`${
               loaded ? "" : "opacity-0"
@@ -129,7 +129,7 @@ export default function Stack() {
               </div>
               <NavBar currPage={Pages.STACK} />
             </div>
-            <div className="secondary-text font-normal flex justify-between">
+            <div className="secondary-text font-normal flex justify-between not-md:flex-col not-md: gap-24">
               {CATEGORIES.map((category) => (
                 <div
                   key={category.name}

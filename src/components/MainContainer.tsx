@@ -16,7 +16,7 @@ export function MainContainer(props: {
 
   return (
     <>
-      <div className="p-6 pb-4 flex gap-3 border-gray-300/20 border-b-2">
+      <div className="p-6 pb-4 flex gap-3 border-gray-300/20 border-b-2 not-md:hidden">
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#F3000D] to-[#7C0000] w-5 h-5"></div>
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#F3DF00] to-[#5B5400] w-5 h-5"></div>
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#0CF300] to-[#055B00] w-5 h-5"></div>
@@ -29,7 +29,7 @@ export function MainContainer(props: {
       </div>
       <div className="p-12 flex flex-col justify-between grow">
         <div>{props.children}</div>
-        <div className="flex justify-between mt-20 items-center relative">
+        <div className="flex justify-between mt-20 items-center relative not-md:flex-wrap not-md:gap-6">
           {prev !== undefined ? (
             <a
               href={pages[prev].route}
@@ -44,7 +44,7 @@ export function MainContainer(props: {
               PREV
             </div>
           )}
-          <div className="flex gap-6 text-4xl">
+          <div className="flex gap-6 text-4xl not-md:text-2xl not-md:order-2 not-md:w-full justify-center">
             <a href="https://www.google.com" className="expand-clickable">
               <MailFilled />
             </a>
