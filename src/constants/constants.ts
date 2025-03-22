@@ -1,4 +1,4 @@
-import { Pages } from './enums';
+import { Pages } from "./enums";
 
 type Page = {
   name: string;
@@ -9,25 +9,25 @@ type Page = {
 
 export const pages: Record<Pages, Page> = {
   [Pages.ME]: {
-    name: 'me',
-    route: '/',
+    name: "me",
+    route: "./",
     next: Pages.STACK,
   },
   [Pages.STACK]: {
-    name: 'stack',
-    route: '/stack',
+    name: "stack",
+    route: "./stack",
     prev: Pages.ME,
     next: Pages.PROJECTS,
   },
   [Pages.PROJECTS]: {
-    name: 'projects',
-    route: '/projects',
+    name: "projects",
+    route: "./projects",
     prev: Pages.STACK,
     next: Pages.CONTACT,
   },
   [Pages.CONTACT]: {
-    name: 'contact',
-    route: '/contact',
+    name: "contact",
+    route: "./contact",
     prev: Pages.PROJECTS,
   },
 };

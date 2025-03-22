@@ -1,6 +1,6 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import Home from "./pages/Home";
-import About from "./pages/About";
+import Me from "./pages/Me";
+import Stack from "./pages/Stack";
 import RootLayout from "./layouts/RootLayout";
 
 function App() {
@@ -8,8 +8,8 @@ function App() {
     <Router basename="/final-portfolio">
       <Routes>
         <Route path="/" element={<RootLayout />}>
-          <Route path="/" index element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" index element={<Me />} />
+          <Route path="/stack" element={<Stack />} />
         </Route>
       </Routes>
     </Router>

@@ -30,7 +30,7 @@ export function MainContainer(props: {
       <div className="p-12 flex flex-col justify-between grow">
         <div>{props.children}</div>
         <div className="flex justify-between mt-20 items-center relative">
-          {prev ? (
+          {prev !== undefined ? (
             <a
               href={pages[prev].route}
               className="tracking-widest expand-clickable"
@@ -61,7 +61,7 @@ export function MainContainer(props: {
               <LinkedinFilled />
             </a>
           </div>
-          {next ? (
+          {next !== undefined ? (
             <a
               href={pages[next].route}
               className="tracking-widest expand-clickable"

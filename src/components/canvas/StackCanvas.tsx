@@ -2,15 +2,13 @@
 
 import { Environment, OrthographicCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import { CustomSphere } from "./CustomSphere";
-import { CustomTorus } from "./CustomTorus";
-import GlassPanel from "./GlassPanel";
+import PixelatedPanel from "./meshes/PixelatedPanel";
 
-interface R3fCanvasProps {
+interface StackCanvasProps {
   onLoad: () => void;
 }
 
-export function R3fCanvas({ onLoad }: R3fCanvasProps) {
+export function StackCanvas({ onLoad }: StackCanvasProps) {
   return (
     <Canvas>
       {/* <OrbitControls /> */}
@@ -32,12 +30,7 @@ export function R3fCanvas({ onLoad }: R3fCanvasProps) {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <CustomTorus position={[5, -3, 0]} />
-      <CustomTorus position={[-5, 3, 0]} />
-      <CustomSphere position={[-5, -3, -10]} />
-      <CustomSphere position={[5, 3, -10]} />
-      <CustomSphere position={[5, 0, -10]} />
-      <GlassPanel onLoad={onLoad} />
+      <PixelatedPanel onLoad={onLoad} />
     </Canvas>
   );
 }
