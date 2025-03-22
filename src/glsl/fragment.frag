@@ -12,7 +12,7 @@ void main(){
     float distY = vUv.y;
 
     float factor = 2.-distance(vUv, uMouseWorldPosition.xy)/10.;
-    float brightnessFactor = max(.2,1.-distance(vUv, uMouseWorldPosition.xy)/1.);
+    float brightnessFactor = max(.5,1.-distance(vUv, uMouseWorldPosition.xy)/1.);
 
     // float max = 1.;
     // vec4 color = vec4(0.0,.0,.0,1.0);
