@@ -88,22 +88,22 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
       uniforms.uMouseWorldPosition.value = vector;
     }
 
-    function onMouseMove(ev: MouseEvent) {
-      updateMousePosition(ev.pageX, ev.pageY);
+    function onMouseMove(ev: PointerEvent) {
+      if (ev.pointerType === "mouse") updateMousePosition(ev.pageX, ev.pageY);
     }
 
-    function onTouchEnd(ev: TouchEvent) {
+    function onTouchStart(ev: TouchEvent) {
       const touch = ev.touches[0];
       if (touch) updateMousePosition(touch.pageX, touch.pageY);
     }
 
     window.addEventListener("scroll", onScroll);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("pointermove", onMouseMove);
+    window.addEventListener("touchstart", onTouchStart);
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("pointermove", onMouseMove);
+      window.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 

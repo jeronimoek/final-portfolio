@@ -18,17 +18,17 @@ export function CustomTorus(props: ThreeElements["mesh"]) {
       xPos.set(ev.clientX);
       yPos.set(ev.clientY);
     };
-    function onTouchEnd() {
+    function onTouchStart() {
       xPos.set(xPos.get() + 400);
       yPos.set(yPos.get() + 400);
     }
 
     window.addEventListener("pointermove", updateMousePosition);
-    window.addEventListener("touchend", onTouchEnd);
+    window.addEventListener("touchstart", onTouchStart);
 
     return () => {
       window.removeEventListener("pointermove", updateMousePosition);
-      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 
