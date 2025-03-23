@@ -89,7 +89,7 @@ export default function Projects() {
               {PROJECTS.map((project) => (
                 <div
                   key={project.name}
-                  className="grow shrink-0 basis-[26%] text-center flex flex-col bg-black/80 rounded-2xl py-8 px-6 max-w-md"
+                  className="grow-0 shrink-0 basis-sm text-center flex flex-col bg-black/80 rounded-2xl py-8 px-6"
                   onClick={() => {
                     window.open(project.url, "_blank");
                   }}
