@@ -94,7 +94,7 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
 
     function onTouchEnd(ev: TouchEvent) {
       const touch = ev.touches[0];
-      updateMousePosition(touch.pageX, touch.pageY);
+      if (touch) updateMousePosition(touch.pageX, touch.pageY);
     }
 
     window.addEventListener("scroll", onScroll);

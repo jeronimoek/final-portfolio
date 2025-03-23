@@ -3,13 +3,18 @@ import type { Pages } from "../constants/enums";
 
 type NavBarParams = {
   currPage: Pages;
+  noTrack?: boolean;
 };
 
-export function NavBar({ currPage }: NavBarParams) {
+export function NavBar({ currPage, noTrack }: NavBarParams) {
   const currentPage = currPage !== undefined ? pages[currPage] : undefined;
 
   return (
-    <div className="flex gap-6 tracking-widest justify-center mb-20 xl:mb-0 h-max">
+    <div
+      className={`flex gap-6 ${
+        noTrack ? "" : "tracking-widest"
+      } justify-center mb-20 xl:mb-0 h-max`}
+    >
       {Object.values(pages).map((page) => {
         const disabled = page.route === currentPage?.route;
         return (

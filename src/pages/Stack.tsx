@@ -108,7 +108,12 @@ const CATEGORIES = [
 export default function Stack() {
   return (
     <StackContainer>
-      <div className="font-['Pixelify_Sans'] min-h-screen flex flex-col">
+      <div
+        className="font-[Silkscreen] min-h-screen flex flex-col"
+        style={{
+          textShadow: "3px 3px 1px black",
+        }}
+      >
         <MainContainer currentPage={Pages.STACK}>
           <div className="flex flex-col gap-20">
             <div className="flex flex-col-reverse xl:flex-row justify-between">
@@ -118,16 +123,21 @@ export default function Stack() {
                     className="w-24 h-24 object-contain"
                     src="./assets/images/Twemoji_1f47e.svg"
                     alt=""
+                    style={{
+                      filter: "drop-shadow( 3px 3px 0 rgba(0, 0, 0, 1))",
+                    }}
                   />
                 </div>
                 <div className="flex flex-col gap-6 not-md:gap-4 not-md:text-center">
-                  <div className="text-5xl font-bold main-text ">My stack</div>
+                  <div className="text-5xl font-normal main-text ">
+                    My stack
+                  </div>
                   <div className="secondary-text text-xl">
                     The technologies I use everyday
                   </div>
                 </div>
               </div>
-              <NavBar currPage={Pages.STACK} />
+              <NavBar currPage={Pages.STACK} noTrack />
             </div>
             <div className="secondary-text font-normal flex justify-between not-md:flex-col not-md: gap-24">
               {CATEGORIES.map((category) => (
@@ -135,7 +145,7 @@ export default function Stack() {
                   key={category.name}
                   className="grow shrink-0 basis-1 text-center"
                 >
-                  <div className="text-4xl mb-6 font-[Silkscreen]">
+                  <div className="text-4xl mb-6">
                     {category.name.toLocaleUpperCase()}
                   </div>
                   <div className="flex flex-col">

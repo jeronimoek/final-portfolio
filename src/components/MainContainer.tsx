@@ -44,7 +44,12 @@ export function MainContainer(props: {
               PREV
             </div>
           )}
-          <div className="flex gap-6 text-4xl not-md:text-2xl not-md:order-2 not-md:w-full justify-center">
+          <div
+            className="flex gap-6 text-4xl not-md:text-2xl not-md:order-2 not-md:w-full justify-center"
+            style={{
+              filter: "drop-shadow( 3px 3px 0 rgba(0, 0, 0, 1))",
+            }}
+          >
             <a href="https://www.google.com" className="expand-clickable">
               <MailFilled />
             </a>
