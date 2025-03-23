@@ -3,16 +3,16 @@ import type { Pages } from "../constants/enums";
 
 type NavBarParams = {
   currPage: Pages;
-  noTrack?: boolean;
+  wideFont?: boolean;
 };
 
-export function NavBar({ currPage, noTrack }: NavBarParams) {
+export function NavBar({ currPage, wideFont }: NavBarParams) {
   const currentPage = currPage !== undefined ? pages[currPage] : undefined;
 
   return (
     <div
       className={`flex gap-6 ${
-        noTrack ? "" : "tracking-widest"
+        wideFont ? "" : "tracking-widest font-extrabold"
       } justify-center mb-20 xl:mb-0 h-max`}
     >
       {Object.values(pages).map((page) => {

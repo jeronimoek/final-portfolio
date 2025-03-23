@@ -1,4 +1,4 @@
-import type { Pages } from "../constants/enums";
+import { Pages } from "../constants/enums";
 import { pages } from "../constants/constants";
 import {
   GithubFilled,
@@ -12,7 +12,8 @@ export function MainContainer(props: {
   children: React.ReactNode;
   currentPage: Pages;
 }) {
-  const { prev, next } = pages[props.currentPage];
+  const { currentPage } = props;
+  const { prev, next } = pages[currentPage];
 
   return (
     <>
@@ -21,13 +22,13 @@ export function MainContainer(props: {
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#F3DF00] to-[#5B5400] w-5 h-5"></div>
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#0CF300] to-[#055B00] w-5 h-5"></div>
       </div> */}
-      <div className="py-6 pb-4 flex gap-3  top-0 justify-center w-full not-md:hidden">
+      <div className="py-6 pb-4 flex gap-3 top-0 justify-center w-full">
         {/* TODO: add route*/}
-        <div className="disabled-text font-extrabold tracking-widest text-xs">
+        <div className="disabled-text font-extrabold tracking-widest text-xs mt-2">
           jeronimoek.com
         </div>
       </div>
-      <div className="p-12 flex flex-col justify-between grow">
+      <div className="p-12 pt-6 flex flex-col justify-between grow">
         <div>{props.children}</div>
         <div className="flex justify-between mt-20 items-center relative not-md:flex-wrap not-md:gap-6">
           {prev !== undefined ? (
@@ -47,7 +48,10 @@ export function MainContainer(props: {
           <div
             className="flex gap-6 text-4xl not-md:text-2xl not-md:order-2 not-md:w-full justify-center"
             style={{
-              filter: "drop-shadow( 3px 3px 0 rgba(0, 0, 0, 1))",
+              filter:
+                currentPage === Pages.STACK
+                  ? "drop-shadow( 3px 3px 0 rgba(0, 0, 0, 1))"
+                  : "",
             }}
           >
             <a href="https://www.google.com" className="expand-clickable">

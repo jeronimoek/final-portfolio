@@ -4,6 +4,7 @@ import { MainContainer } from "../components/MainContainer";
 import { NavBar } from "../components/NavBar";
 import { Pages } from "../constants/enums";
 import { StackCanvas } from "../components/canvas/StackCanvas";
+import { STACK_CATEGORIES } from "../constants/constants";
 import "../styles/Stack.css";
 
 interface StackContainerProps {
@@ -23,7 +24,10 @@ function StackContainer({ children }: StackContainerProps) {
         />
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
-        <div className="z-10 w-full md:w-[80%] min-h-screen md:rounded-[20px] relative flex flex-col backdrop-blur-xs">
+        <div
+          className="z-10 w-full md:w-[80%] min-h-screen relative flex flex-col backdrop-blur-sm"
+          style={{ boxShadow: "black 0 0 10px 5px" }}
+        >
           <div
             className={`${
               loaded ? "" : "opacity-0"
@@ -42,69 +46,6 @@ function StackContainer({ children }: StackContainerProps) {
   );
 }
 
-const CATEGORIES = [
-  {
-    name: "front",
-    technologies: [
-      {
-        name: "React",
-        description: "The best tool for website development",
-        image: "",
-      },
-      {
-        name: "Vite",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-      {
-        name: "D3",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-    ],
-  },
-  {
-    name: "back",
-    technologies: [
-      {
-        name: "Electron",
-        description: "The best tool for website development",
-        image: "",
-      },
-      {
-        name: "Node",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-      {
-        name: "Prisma",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-    ],
-  },
-  {
-    name: "other",
-    technologies: [
-      {
-        name: "PostgreSQL",
-        description: "The best tool for website development",
-        image: "",
-      },
-      {
-        name: "GraphQL",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-      {
-        name: "Directus",
-        description: "The best tool for compiling websites",
-        image: "",
-      },
-    ],
-  },
-];
-
 export default function Stack() {
   return (
     <StackContainer>
@@ -122,7 +63,7 @@ export default function Stack() {
                   <img
                     className="w-24 h-24 object-contain"
                     src="./assets/images/Twemoji_1f47e.svg"
-                    alt=""
+                    alt="alien 8bit"
                     style={{
                       filter: "drop-shadow( 3px 3px 0 rgba(0, 0, 0, 1))",
                     }}
@@ -137,13 +78,17 @@ export default function Stack() {
                   </div>
                 </div>
               </div>
-              <NavBar currPage={Pages.STACK} noTrack />
+              <NavBar currPage={Pages.STACK} wideFont />
             </div>
-            <div className="secondary-text font-normal flex justify-between not-md:flex-col not-md: gap-24">
-              {CATEGORIES.map((category) => (
+            <div
+              className="secondary-text font-normal grid w-full gap-y-12"
+              id="categories"
+            >
+              {STACK_CATEGORIES.map((category) => (
                 <div
                   key={category.name}
-                  className="grow shrink-0 basis-1 text-center"
+                  className="text-center"
+                  style={{ gridArea: category.name }}
                 >
                   <div className="text-4xl mb-6">
                     {category.name.toLocaleUpperCase()}

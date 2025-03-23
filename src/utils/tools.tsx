@@ -56,3 +56,12 @@ export function roundedRect(
 export function deviceHasMouse() {
   return matchMedia("(pointer:fine)").matches;
 }
+
+export function getScrollPosition() {
+  const scrollPosition =
+    window.pageYOffset !== undefined
+      ? window.pageYOffset
+      : (document.documentElement || document.body.parentNode || document.body)
+          .scrollTop;
+  return scrollPosition;
+}

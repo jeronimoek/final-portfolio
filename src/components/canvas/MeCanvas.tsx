@@ -22,7 +22,7 @@ export function MeCanvas({ onLoad }: MeCanvasProps) {
         right={5}
         top={5}
       />
-      <Environment preset="city" environmentIntensity={0.1} />
+      <Environment preset="forest" environmentIntensity={0.1} />
       <ambientLight intensity={Math.PI / 2} />
       <spotLight
         position={[10, 10, 10]}

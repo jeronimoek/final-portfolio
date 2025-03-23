@@ -24,7 +24,7 @@ function MeContainer({ children }: MeContainerProps) {
         />
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
-        <div className="z-10 w-full md:w-[80%] min-h-screen relative flex flex-col">
+        <div className="z-10 w-full md:w-[80%] min-h-screen md:rounded-[20px] relative flex flex-col">
           <div
             className={`${
               loaded ? "" : "opacity-0"
@@ -55,7 +55,7 @@ export default function Me() {
                   <img
                     className="w-50 h-50 object-contain -scale-x-90 scale-y-90 mt-3"
                     src="./assets/images/selfie.png"
-                    alt=""
+                    alt="Jerónimo"
                   />
                 </div>
                 <div className="flex flex-col justify-between not-md:gap-4 not-md:text-center">
@@ -123,7 +123,7 @@ export default function Me() {
               </p>
             </div>
           </div>
-        </MainContainer>{" "}
+        </MainContainer>
       </div>
     </MeContainer>
   );

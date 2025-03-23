@@ -1,13 +1,14 @@
 import type { Mesh, ShaderMaterial } from "three";
 import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { DoubleSide, ShapeGeometry, Vector3 } from "three";
-import vertex from "../../../glsl/vertex.vert";
-import fragment from "../../../glsl/fragment.frag";
+import vertex from "../../../glsl/pixelated/vertex.vert";
+import fragment from "../../../glsl/pixelated/fragment.frag";
 import { useFrame } from "@react-three/fiber";
 import {
   deviceHasMouse,
   getDocumentHeight,
   getDocumentWidth,
+  getScrollPosition,
   getWindowHeight,
   roundedRect,
 } from "../../../utils/tools";
@@ -42,13 +43,7 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
     // Create geometry
 
     const rectWidth = isMd ? 0.8 * CAMERA_UNITS : CAMERA_UNITS;
-    const roundedRectShape = roundedRect(
-      0,
-      0,
-      rectWidth,
-      HEIGHT,
-      isMd ? 0.3 : 0
-    );
+    const roundedRectShape = roundedRect(0, 0, rectWidth, HEIGHT, 0);
     setGeometry(new ShapeGeometry(roundedRectShape));
 
     const proportion = docHeight / windowHeight;
@@ -62,14 +57,7 @@ export default function PixelatedPanel({ onLoad }: PixelatedPanelProps) {
     const hasMouse = deviceHasMouse();
 
     function onScroll() {
-      const scrollPosition =
-        window.pageYOffset !== undefined
-          ? window.pageYOffset
-          : (
-              document.documentElement ||
-              document.body.parentNode ||
-              document.body
-            ).scrollTop;
+      const scrollPosition = getScrollPosition();
 
       if (!hasMouse) updateMousePosition(docWidth - scrollPosition, -10);
 

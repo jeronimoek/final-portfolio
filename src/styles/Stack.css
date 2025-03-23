@@ -1,2 +1,32 @@
 /* @import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"); */
 @import url("https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap");
+
+#categories {
+  grid-template-areas:
+    "front back bbdd testing"
+    "front back deploy other";
+  grid-auto-rows: min-content;
+  grid-auto-columns: 1fr;
+}
+
+@media (width < 1280px) {
+  #categories {
+    grid-template-areas:
+      "front back"
+      "front back"
+      "bbdd testing"
+      "deploy other";
+  }
+}
+
+@media (width < 768px) {
+  #categories {
+    grid-template-areas:
+      "front"
+      "back"
+      "bbdd"
+      "testing"
+      "deploy"
+      "other";
+  }
+}

@@ -5,6 +5,7 @@ import { ExtrudeGeometry } from "three";
 import {
   getDocumentHeight,
   getDocumentWidth,
+  getScrollPosition,
   getWindowHeight,
   roundedRect,
 } from "../../../utils/tools";
@@ -51,7 +52,6 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
     setGeometry(new ExtrudeGeometry(roundedRectShape, extrudeSettings));
 
     const proportion = docHeight / windowHeight;
-    // console.log(proportion);
     meshRef.current?.scale.set(1, proportion, 1);
     meshRef.current?.position.set(
       -rectWidth / 2,
@@ -60,17 +60,9 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
     );
 
     function onScroll() {
-      const scrollPosition =
-        window.pageYOffset !== undefined
-          ? window.pageYOffset
-          : (
-              document.documentElement ||
-              document.body.parentNode ||
-              document.body
-            ).scrollTop;
-      // console.log({ scrollPosition });
+      const scrollPosition = getScrollPosition();
+
       const scrollCanvasDiff = (scrollPosition / windowHeight) * CAMERA_UNITS;
-      // console.log({ scrollCanvasDiff });
       meshRef.current?.position.set(
         -rectWidth / 2,
         -height / 2 -
@@ -78,10 +70,7 @@ export default function GlassPanel({ onLoad }: GlassPanelProps) {
           scrollCanvasDiff,
         4
       );
-      // console.log(-4.5 - 9.5 * (proportion - 1) + scrollCanvasDiff);
-      // console.log(document.body);
     }
-    // console.log({ windowHeight, docHeight });
 
     window.addEventListener("scroll", onScroll);
     return () => {

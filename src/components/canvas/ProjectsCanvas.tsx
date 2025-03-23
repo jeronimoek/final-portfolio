@@ -2,18 +2,29 @@
 
 import { OrthographicCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import PixelatedPanel from "./meshes/PixelatedPanel";
+import StripePanel from "./meshes/StripePanel";
+import { Euler } from "three";
 
-interface StackCanvasProps {
+interface ProjectsCanvasProps {
   onLoad: () => void;
 }
 
-export function StackCanvas({ onLoad }: StackCanvasProps) {
+export function ProjectsCanvas({ onLoad }: ProjectsCanvasProps) {
   return (
     <Canvas>
-      {/* <OrbitControls /> */}
+      {/* <OrbitControls
+        onChange={(ev) =>
+          console.log(
+            ev?.target.object.rotation,
+            ev?.target.object.position,
+            ev?.target.object.zoom
+          )
+        }
+      /> */}
       <OrthographicCamera
-        position={[0, 0, 30]}
+        position={[-7.272, -4.943, 28.683]}
+        rotation={new Euler(0.171, -0.245, 0.042)}
+        zoom={1.851}
         makeDefault
         left={-5}
         bottom={-5}
@@ -29,7 +40,7 @@ export function StackCanvas({ onLoad }: StackCanvasProps) {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-      <PixelatedPanel onLoad={onLoad} />
+      <StripePanel onLoad={onLoad} />
     </Canvas>
   );
 }
