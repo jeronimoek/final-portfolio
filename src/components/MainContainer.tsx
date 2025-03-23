@@ -16,12 +16,12 @@ export function MainContainer(props: {
 
   return (
     <>
-      <div className="p-6 pb-4 flex gap-3 border-gray-300/20 border-b-2 not-md:hidden">
+      {/* <div className="p-6 pb-4 flex gap-3 border-gray-300/20 border-b-2 not-md:hidden">
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#F3000D] to-[#7C0000] w-5 h-5"></div>
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#F3DF00] to-[#5B5400] w-5 h-5"></div>
         <div className="rounded-full bg-radial-[at_50%_0%] from-[#0CF300] to-[#055B00] w-5 h-5"></div>
-      </div>
-      <div className="py-6 pb-4 flex gap-3 absolute top-0 justify-center w-full not-md:hidden">
+      </div> */}
+      <div className="py-6 pb-4 flex gap-3  top-0 justify-center w-full not-md:hidden">
         {/* TODO: add route*/}
         <div className="disabled-text font-extrabold tracking-widest text-xs">
           jeronimoek.com
