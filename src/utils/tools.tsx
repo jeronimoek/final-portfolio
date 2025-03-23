@@ -52,3 +52,7 @@ export function roundedRect(
 
   return shape;
 }
+
+export function deviceHasMouse() {
+  return matchMedia("(pointer:fine)").matches;
+}

@@ -23,7 +23,7 @@ function StackContainer({ children }: StackContainerProps) {
         />
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
-        <div className="z-10 w-full md:w-[80%] min-h-screen rounded-[55px] relative flex flex-col backdrop-blur-xs">
+        <div className="z-10 w-full md:w-[80%] min-h-screen md:rounded-[20px] relative flex flex-col backdrop-blur-xs">
           <div
             className={`${
               loaded ? "" : "opacity-0"

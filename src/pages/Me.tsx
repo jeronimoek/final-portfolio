@@ -24,7 +24,7 @@ function MeContainer({ children }: MeContainerProps) {
         />
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
-        <div className="z-10 w-full md:w-[80%] min-h-screen rounded-[55px] relative flex flex-col">
+        <div className="z-10 w-full md:w-[80%] min-h-screen relative flex flex-col">
           <div
             className={`${
               loaded ? "" : "opacity-0"
@@ -85,9 +85,9 @@ export default function Me() {
                 apasionado por la tecnología, la creatividad y la aventura.
               </p>
               <p className="mt-6">
-                Con 22 años, nací y crecí en Argentina, y desde que tengo
-                memoria, la informática ha sido una parte fundamental de mi
-                vida. La curiosidad y el deseo de aprender me han llevado a ser
+                Nací y crecí en Argentina, y desde que tengo memoria, la
+                informática ha sido una parte fundamental de mi vida. La
+                curiosidad y el deseo de aprender me han llevado a ser
                 autodidacta, lo que me ha permitido desarrollar una sólida base
                 en el desarrollo web a lo largo de los últimos 3 años y medio.
               </p>
