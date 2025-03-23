@@ -23,11 +23,5 @@ export const pages: Record<Pages, Page> = {
     name: "projects",
     route: "./projects",
     prev: Pages.STACK,
-    next: Pages.CONTACT,
-  },
-  [Pages.CONTACT]: {
-    name: "contact",
-    route: "./contact",
-    prev: Pages.PROJECTS,
   },
 };
