@@ -54,19 +54,39 @@ export function MainContainer(props: {
                   : "",
             }}
           >
-            <a href="https://www.google.com" className="expand-clickable">
+            <a
+              href="mailto:jeronimoek@gmail.com"
+              target="_blank"
+              className="expand-clickable"
+            >
               <MailFilled />
             </a>
-            <a href="https://www.google.com" className="expand-clickable">
+            <a
+              href="https://github.com/jeronimoek/"
+              target="_blank"
+              className="expand-clickable"
+            >
               <GithubFilled />
             </a>
-            <a href="https://www.google.com" className="expand-clickable">
+            <a
+              href="tel:+34610670414"
+              target="_blank"
+              className="expand-clickable"
+            >
               <PhoneFilled />
             </a>
-            <a href="https://www.google.com" className="expand-clickable">
+            <a
+              href="https://wa.me/34610670414"
+              target="_blank"
+              className="expand-clickable"
+            >
               <WhatsAppOutlined />
             </a>
-            <a href="https://www.google.com" className="expand-clickable">
+            <a
+              href="https://www.linkedin.com/in/jeronimoek/"
+              target="_blank"
+              className="expand-clickable"
+            >
               <LinkedinFilled />
             </a>
           </div>
