@@ -46,7 +46,7 @@ export default function StripePanel({ onLoad }: StripePanelProps) {
 
     // Create geometry
     const rectWidth = 10;
-    setGeometry(new PlaneGeometry(rectWidth, 10, 100, 100));
+    setGeometry(new PlaneGeometry(rectWidth, 10, 300, 300));
 
     const proportion = docHeight / windowHeight;
     meshRef.current?.scale.set(1, proportion, 1);

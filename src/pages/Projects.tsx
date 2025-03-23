@@ -25,7 +25,7 @@ function ProjectsContainer({ children }: ProjectsContainerProps) {
       </div>
       <div className="w-screen min-h-screen bg-gradient-to-br from-[#444] to-[#000] flex overflow-auto items-center justify-center">
         <div
-          className="z-10 w-full md:w-[80%] min-h-screen relative flex flex-col backdrop-blur-xs"
+          className="z-10 w-full md:w-[80%] min-h-screen relative flex flex-col"
           style={{ boxShadow: "black 0 0 10px 5px" }}
         >
           <div
