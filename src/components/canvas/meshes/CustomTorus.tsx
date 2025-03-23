@@ -40,11 +40,11 @@ export function CustomTorus(props: ThreeElements["mesh"]) {
       100,
       Math.sqrt(xSpring.get() ** 2 + ySpring.get() ** 2)
     );
-    meshRef.current.rotation.x += 0.01 + vel / 1000;
+    meshRef.current.rotation.x += 0.01 + vel / 2000;
   });
   return (
     <mesh {...props} ref={meshRef} rotation={[0, 1, 0]}>
-      <torusGeometry args={[2, 0.5, 16, 100]} />
+      <torusGeometry args={[2, 0.5, 12, 48]} />
       <meshPhysicalMaterial metalness={1} roughness={0.127} color="gray" />
     </mesh>
   );

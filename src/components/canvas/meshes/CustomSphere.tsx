@@ -53,7 +53,7 @@ export function CustomSphere(props: ThreeElements["mesh"]) {
   });
   return (
     <mesh {...props} ref={meshRef}>
-      <sphereGeometry args={[1]} />
+      <sphereGeometry args={[1, 12, 12]} />
       <meshPhysicalMaterial metalness={1} roughness={0.127} color="gray" />
     </mesh>
   );
