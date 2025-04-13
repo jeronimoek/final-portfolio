@@ -74,9 +74,9 @@ export default function Projects() {
               <div className="flex gap-8 flex-row not-xl:justify-center">
                 <div className="flex flex-col gap-6 not-md:gap-4 not-xl:text-center">
                   <div className="text-5xl font-normal main-text ">
-                    {"</Projects"}
-                    <span className="animate-pulse">_</span>
-                    {">"}
+                    {"<Projects"}
+                    <span className="animate-pulse">_ </span>
+                    {"/>"}
                   </div>
                   <div className="secondary-text text-xl">
                     Public projects I have made so far
